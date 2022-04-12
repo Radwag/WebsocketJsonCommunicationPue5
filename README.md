@@ -31,9 +31,9 @@ The available options are in the app:
 3. Build and run.
 
 # WPF sample
-![image](https://user-images.githubusercontent.com/46632727/162939944-2727c6cd-9aeb-4b81-a2d9-4a69823334ed.png)
+![image](https://user-images.githubusercontent.com/46632727/162943984-f3311ca2-d434-4ce3-972e-48e909c80151.png)
 # WinForms sample
-![image](https://user-images.githubusercontent.com/46632727/162940416-4ef8b3fb-afd6-46ad-b0c7-26c33da5b903.png)
+![image](https://user-images.githubusercontent.com/46632727/162943885-9da5f310-8bf7-4e07-9063-073b62427784.png)
 
 [contributors-shield]: https://img.shields.io/github/contributors/Radwag/WebsocketJsonCommunicationPue5.svg?style=for-the-badge
 [contributors-url]: https://github.com/Radwag/WebsocketJsonCommunicationPue5/contributors
