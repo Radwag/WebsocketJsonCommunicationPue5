@@ -1,0 +1,197 @@
+﻿<Window x:Class="SampleWpfApp.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mainViews="clr-namespace:SampleWpfApp.ViewModels"
+        mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance {x:Type mainViews:MainViewModel}}"
+        Title="Sample WPF. Scale json communication via websocket" Height="450" Width="800">
+    <Grid x:Name="MassGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition> 
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="3*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <Image Grid.Row="3" Grid.Column="2" Width="160" Margin="5" Source="../Images/logo-rw.png" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity=".9"></Image>
+        
+        <!-- Ip addres textbox and connection button -->
+        <StackPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2"  HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+            <TextBlock Text="Enter scale IP address:" Margin="0 0 5 0"/>
+            <TextBox MinWidth="100" Text="{Binding IPAddress}" Margin="0 0 5 0"></TextBox>
+            <Button MinWidth="100"  Command="{Binding ExecuteConnectCommand}" Margin="0 0 5 0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                                <Setter Property="Content" Value="Disconnect" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                                <Setter Property="Content" Value="Connect" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </StackPanel>
+         
+        <!--Signaling indicator panel-->
+        <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                            <Setter Property="Opacity" Value=".3" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <!--StabilityImage-->
+            <Image IsEnabled="{Binding IsConnected}" Width="40" Height="40" Margin="5" Source="{StaticResource StabilityImage}">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataModel.RECORD.ActivePlatformMass.IsStab}" Value="False">
+                                <Setter Property="Opacity" Value=".3" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <!--ZeroingImage-->
+            <Image IsEnabled="{Binding IsConnected}" Width="40" Height="40" Margin="5" Source="{StaticResource ZeroingImage}">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataModel.RECORD.ActivePlatformMass.IsZero}" Value="False">
+                                <Setter Property="Opacity" Value=".3" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+            <!--TareImage-->
+            <Image IsEnabled="{Binding IsConnected}" Width="40" Height="40" Margin="5" Source="{StaticResource NetImage}">
+                <Image.Style>
+                    <Style TargetType="Image">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding DataModel.RECORD.ActivePlatformMass.IsTare}" Value="False">
+                                <Setter Property="Opacity" Value=".3" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Image.Style>
+            </Image>
+        </StackPanel>
+        <!--Mass panel-->
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                            <Setter Property="Opacity" Value=".3" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <TextBlock IsEnabled="{Binding IsConnected}" Text="{Binding DataModel.RECORD.ActivePlatformMass.NetAct.Value}" FontSize="72" FontWeight="Bold"></TextBlock>
+            <TextBlock IsEnabled="{Binding IsConnected}" Text="{Binding DataModel.RECORD.ActivePlatformMass.NetAct.Unit}" FontSize="56" FontWeight="Bold" Margin="5 20 0 0"></TextBlock>
+        </StackPanel>
+        
+        <!--Platform changing panel-->
+        <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                            <Setter Property="Opacity" Value=".3" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Button IsEnabled="{Binding IsConnected}" Width="40" Height="40" ToolTip="Change Platform" Margin="5" Background="Transparent" BorderBrush="Transparent" Command="{Binding ExecuteActionCommand}" CommandParameter="ActionChangePlatform">
+                <Image Source="{Binding DataModel.RECORD.ActivePlatformIndexImage, FallbackValue='Images/Platform-1.png'}"></Image>
+            </Button> 
+        </StackPanel>
+        
+        <!--Progressbar panel-->
+        <Grid Grid.Row="2" Grid.ColumnSpan="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                            <Setter Property="Opacity" Value=".3" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width=".1*"></ColumnDefinition>
+                                <ColumnDefinition Width=".8*"></ColumnDefinition>
+                                <ColumnDefinition Width=".1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock 
+                                FontWeight="Bold"
+                                FontSize="16"
+                                Text="0%" 
+                                Margin="0 20 -10 -10"
+                                VerticalAlignment="Bottom"/>
+                                <ProgressBar Grid.Column="1" Height="8"
+                                         HorizontalAlignment="Left" Width="{Binding ActualWidth, ElementName=MassGrid}"
+                                         Value="{Binding DataModel.RECORD.ActivePlatformMass.NetAct.Value,  UpdateSourceTrigger=PropertyChanged, FallbackValue=0, TargetNullValue=0}"
+                                         Maximum="{Binding DataModel.RECORD.ActivePlatformMass.MaxAct,  UpdateSourceTrigger=PropertyChanged, FallbackValue=0, TargetNullValue=0}"
+                                             Foreground="DodgerBlue"
+                            >
+                            </ProgressBar>
+                            <TextBlock
+                                Grid.Column="2"
+                                FontWeight="Bold"
+                                FontSize="16"
+                                Text="Max"
+                                Margin="-10 0 0 -10"
+                                VerticalAlignment="Bottom" ></TextBlock>
+                        </Grid>
+
+        <!--Taring and zeroing buttons panel-->
+        <StackPanel Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="True">
+                            <Setter Property="Opacity" Value="1" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsConnected}" Value="False">
+                            <Setter Property="Opacity" Value=".3" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Button IsEnabled="{Binding IsConnected}" Width="100" Height="100" ToolTip="Tarring" Margin="5" Background="Transparent" BorderBrush="Transparent" Command="{Binding ExecuteActionCommand}" CommandParameter="ActionTarring">
+                <Image Source="../Images/ActionTarring.png" />
+            </Button>
+            <Button IsEnabled="{Binding IsConnected}" Width="100" Height="100" ToolTip="Zeroing" Margin="5" Background="Transparent" BorderBrush="Transparent" Command="{Binding ExecuteActionCommand}" CommandParameter="ActionZeroing">
+                <Image Source="../Images/ActionZeroing.png" />
+            </Button>
+        </StackPanel>
+        <Label Content="{Binding DataModel.RECORD.Date}" Grid.Column="2" HorizontalAlignment="Center" Margin="0,18,0,0" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

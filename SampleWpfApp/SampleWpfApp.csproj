@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net5.0-windows</TargetFramework>
+        <Nullable>enable</Nullable>
+        <UseWPF>true</UseWPF>
+        <LangVersion>10</LangVersion>
+        <ApplicationIcon>icon.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Services\Services.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="icon.ico">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Images\ActionTarring.png" />
+      <Resource Include="Images\ActionTarring.png" />
+      <None Remove="Images\ActionZeroing.png" />
+      <Resource Include="Images\ActionZeroing.png" />
+      <None Remove="Images\logo-rw.png" />
+      <Resource Include="Images\logo-rw.png" />
+      <None Remove="Images\Net.png" />
+      <Resource Include="Images\Net.png" />
+      <None Remove="Images\Platform-1.png" />
+      <Resource Include="Images\Platform-1.png" />
+      <None Remove="Images\Platform-2.png" />
+      <Resource Include="Images\Platform-2.png" />
+      <None Remove="Images\Platform-3.png" />
+      <Resource Include="Images\Platform-3.png" />
+      <None Remove="Images\Platform-4.png" />
+      <Resource Include="Images\Platform-4.png" />
+      <None Remove="Images\Stability.png" />
+      <Resource Include="Images\Stability.png" />
+      <None Remove="Images\Zeroing.png" />
+      <Resource Include="Images\Zeroing.png" />
+    </ItemGroup>
+
+</Project>
